@@ -7,7 +7,7 @@ parameters:
 
 import numpy as np
 from itertools import combinations_with_replacement
-from distance import jaccard
+from distances import jaccard
 
 def calculate_pairwise_distance(X):
     # TODO : this function is very slow need improvement
