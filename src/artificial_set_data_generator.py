@@ -151,7 +151,7 @@ def _generate_cluster_members(
     representatives, 
     min_member,
     all_features):
-    jaccard_threshold = 0.2
+    jaccard_threshold = 0.8
     number_of_data_per_cluster = _find_number_of_member_per_cluster(data_size, representatives)
     data = []
     clusters = []
@@ -201,12 +201,15 @@ def _find_closest_member_from_other_clusters(own_cluster_id, pw_dist, ground_tru
     return min_index
 
 def _calculate_overlap(data, ground_truths, representatives, pw_dist):
-    overlap_list = np.zeros(len(data))
+    overlap_count = 0
     for i in range(len(data)):
         closest_member_from_other_cluster_id = _find_closest_member_from_other_clusters(ground_truths[i], pw_dist, ground_truths, i)
         closest_member_from_other_cluster = data[closest_member_from_other_cluster_id]
         if _jaccard_seq(data[i], closest_member_from_other_cluster) < _jaccard_seq(data[i], representatives[ground_truths[i]]):
             print('there is an overlap at data', i, 'with cluster', ground_truths[closest_member_from_other_cluster_id])
+            overlap_count = overlap_count + 1
+    print('overlap count is:', overlap_count)
+    print('overlap percentage is:', (overlap_count * 100) / len(data))
 
 def generate(
     data_size, 
