@@ -3,29 +3,23 @@ This module contain the implementation of artificial data generator for set data
 
 parameters:
 * data_size : (int) an integer number specifies number of total number of data that will be generated
-* size_of_set : (tuple) specifies min and max number of features per each data
+* size_of_set : [NOT IMPLEMENTED](tuple) specifies min and max number of features per each data
 * number_of_cluster : (int) an integer number specifies number of cluster to create
 * dimension : (int) an integer number specifies total number of features that will be generate in the data set
-* overlap : (enum) specifies cluster overlap percentage
-* imbalance : (tuple) specifies number of big and small cluster
+* distance_threshold : (float) a number specifies the maximum distance away from the cluster representative according to Jaccard's method
+* minimum_feature_per_entry : (int) an interger specifies the minimum feature that each data has to contain
+* all_features : (string[]) an array of string containing all possible features of the dataset
 
 returns:
+type : tuple
 * artificially generated data set as a list of numpy array containing strings
+* ground truth of the data set
 """
 
-import data_utilities
 import random
 import numpy as np
 from itertools import chain, combinations_with_replacement
 import math
-
-def _build_artificial_features(dimension):
-    all_features = data_utilities.get_features(data_utilities.read_file())
-
-    if all_features.shape[0] < dimension:
-        raise Exception('Program terminated, number of dimension is higher than total data.')
-    
-    return np.array(random.sample(all_features.tolist(), dimension))
 
 def _create_cluster_member_random(all_features, min_feature, max_feature):
     number_of_member_features = random.randrange(min_feature, max_feature + 1)
@@ -211,20 +205,26 @@ def _calculate_overlap(data, ground_truths, representatives, pw_dist):
     print('overlap count is:', overlap_count)
     print('overlap percentage is:', (overlap_count * 100) / len(data))
 
+
+DATA_SIZE = 100
+SIZE_OF_SET = (4, 20) # [NOT IMPLEMENTED] tuple of large and small data set
+NUMBER_OF_CLUSTER = 5
+DIMENSION = 200
+DISTANCE_THRESHOLD = 0.2
+MINIMUM_FEATURE_PER_ENTRY = 4
 def generate(
     data_size, 
     size_of_set, 
     number_of_cluster, 
     dimension, 
-    overlap, 
-    imbalance, 
-    min_member):
-    all_features = _build_artificial_features(dimension)
+    distance_threshold, 
+    minimum_feature_per_entry,
+    all_features):
 
-    representatives = _create_cluster_representatives(number_of_cluster, min_member, all_features)
+    representatives = _create_cluster_representatives(number_of_cluster, minimum_feature_per_entry, all_features)
     print('=== done representative calculation ===')
 
-    data, ground_truths = _generate_cluster_members(data_size, size_of_set, representatives, min_member, all_features)
+    data, ground_truths = _generate_cluster_members(data_size, size_of_set, representatives, minimum_feature_per_entry, all_features)
     print('=== done generating data and ground truths ===')
 
     pw_dist = _calculate_pairwise_distance(np.array(data))
