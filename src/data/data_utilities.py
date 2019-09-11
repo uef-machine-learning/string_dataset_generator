@@ -31,3 +31,12 @@ def get_features(np_data):
     unique_set.discard('')
     features = np.array(list(unique_set))
     return features
+
+def write_file(data_seq, file_path):
+    with open(file_path, 'w') as f:
+        j = 0
+        for i in data_seq:
+            s = ' '.join([j for j in i])
+            f.write(s)    
+            f.write('\n')
+            j = j + 1

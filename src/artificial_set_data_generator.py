@@ -14,6 +14,7 @@ returns:
 type : tuple
 * artificially generated data set as a list of numpy array containing strings
 * ground truth of the data set
+* list of numpy array (cluster representative / medoids)
 """
 from entries import entry
 from distances import jaccard, pairwise, overlap
@@ -43,3 +44,5 @@ def generate(
 
     overlap.calculate_overlap(data, ground_truths, representatives)
     print('=== done overlap calculation ===')
+
+    return(data, ground_truths, representatives)

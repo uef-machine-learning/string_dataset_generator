@@ -5,20 +5,21 @@ This module should be treated as a client of the library
 
 import artificial_set_data_generator as dg
 from features import feature
-
+from data import data_utilities
+import numpy as np
 
 # Parameters setting
 DATA_SIZE = 100
 SIZE_OF_SET = (4, 20) # [NOT IMPLEMENTED] tuple of large and small data set
 NUMBER_OF_CLUSTER = 5
 DIMENSION = 200
-DISTANCE_THRESHOLD = 0.5
+DISTANCE_THRESHOLD = 0.6
 MINIMUM_FEATURE_PER_ENTRY = 4
 FILE_PATH = '../data/50000.txt'
 ALL_FEATURES = feature.get_all_features(DIMENSION, FILE_PATH)
 
 # Calling the library
-dg.generate(
+data, ground_truths, representatives = dg.generate(
     DATA_SIZE, 
     SIZE_OF_SET, 
     NUMBER_OF_CLUSTER, 
@@ -27,3 +28,6 @@ dg.generate(
     MINIMUM_FEATURE_PER_ENTRY,
     ALL_FEATURES)
 
+data_utilities.write_file(data, '../out/gen_data.txt')
+data_utilities.write_file(representatives, '../out/gen_representative.txt')
+np.savetxt('../out/gen_ground_truths.txt', ground_truths.T, fmt='%d') 
