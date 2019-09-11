@@ -26,6 +26,7 @@ APIs
 import numpy as np
 import random
 import math
+from distances import jaccard
 
 DEFAULT_STRING = '   '
 
@@ -144,7 +145,7 @@ def generate_cluster_members(
                 len(all_features), 
                 distance_threshold)
 
-            if _jaccard_seq(representatives[i], member) < distance_threshold:
+            if jaccard.jaccard_seq(representatives[i], member) < distance_threshold:
                 data.append(member)
                 ground_truths.append(i)
                 cluster_len = cluster_len + 1
