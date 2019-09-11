@@ -55,7 +55,12 @@ def _create_cluster_member_random_but_same_feature_length(representative, all_fe
 
         return cp_representative
 
-def _create_cluster_memeber_random_different_feature_length(representative, all_features, min_feature, max_feature, distance_threshold):
+def _create_cluster_member_random_different_feature_length(
+    representative, 
+    all_features, 
+    min_feature, 
+    max_feature, 
+    distance_threshold):
     jaccard_similarity_threshold = 1 - distance_threshold
     
     number_of_member_features = random.randrange(min_feature, max_feature + 1)
@@ -69,28 +74,40 @@ def _create_cluster_memeber_random_different_feature_length(representative, all_
 
     new_member = np.full(number_of_member_features, '   ')
     number_of_union = np.random.randint(min_union, min(number_of_member_features, len(representative)))
-    new_data_init = random.sample(all_features.tolist(), number_of_member_features)
-    id_to_change = random.sample(range(number_of_member_features), number_of_union)
-    new_features = random.sample(all_features.tolist(), len(id_to_change))
+    total_available_features = [x for x in all_features if x not in representative]
     
-    new_member[id_to_change] = new_features
-
+    print('number of union:', number_of_union)
     # number_of_member_features > representative
     if number_of_member_features > len(representative):
         new_member[0:len(representative)] = representative
-        new_member[len(representative):] = new_features[0:(number_of_member_features - len(representative))]
-        
-        id_to_change = random.sample(range(len(representative)), len(representative) - (number_of_member_features - len(representative)))
+        id_to_change = random.sample(range(len(representative)), len(representative) - number_of_union)
+        empty_space = len(np.where(new_member == '   ')[0])
+        new_features_pool = random.sample(total_available_features, len(id_to_change) + empty_space)
+        new_member[len(representative):] = new_features_pool[0:(number_of_member_features - len(representative))]
+        new_member[id_to_change] = new_features_pool[(number_of_member_features - len(representative)):]
 
-        print(len(id_to_change))
-        print(len(new_features[(number_of_member_features - len(representative)) : ]))
-        print('=======')
-        #new_member[id_to_change] = new_features[(number_of_member_features - len(representative)) : ]
+        # print('representative:', representative)
+        # print('current new member:', new_member)
+        # print('number of total new feature pool:', len(id_to_change) + empty_space)
 
-        
-        #print(new_member)
     # number_of_member_features < representative
+    elif number_of_member_features < len(representative):
+        selected_id = random.sample(range(len(representative)), number_of_member_features)
+        new_member = representative[selected_id]
+        new_features = random.sample(total_available_features, len(new_member) - number_of_union)
+        id_to_change = random.sample(range(len(new_member)), len(new_member) - number_of_union)
+        new_member[id_to_change] = new_features
+        # print('representative:', representative)
+        # print('current new member:', new_member)
+        
     # both == 
+    else:
+        new_member = np.copy(representative)
+        id_to_change = random.sample(range(number_of_member_features), number_of_member_features - number_of_union)
+        new_features = random.sample(total_available_features, len(id_to_change))
+        new_member[id_to_change] = new_features
+        # print('representative:', representative)
+        # print('current new member:', new_member)
     return new_member
 
 def _remove_assigned_features(cp_all_features, representative):
@@ -159,7 +176,7 @@ def _generate_cluster_members(
         while cluster_len != number_of_data_per_cluster[i]:
             # member = _create_cluster_member_random(all_features, 4, len(all_features))
             member = _create_cluster_member_random_but_same_feature_length(representatives[i], all_features)
-            member_2 = _create_cluster_memeber_random_different_feature_length(representatives[i], all_features, min_member, len(all_features), jaccard_threshold)
+            member_2 = _create_cluster_member_random_different_feature_length(representatives[i], all_features, min_member, len(all_features), jaccard_threshold)
 
             if _jaccard_seq(representatives[i], member) < jaccard_threshold:
                 data.append(member)
