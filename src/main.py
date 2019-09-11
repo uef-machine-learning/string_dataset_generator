@@ -6,12 +6,13 @@ This module should be treated as a client of the library
 import artificial_set_data_generator as dg
 from features import feature
 from data import data_utilities
+from imbalance import size
 import numpy as np
 
 # Parameters setting
 DATA_SIZE = 100
-SIZE_OF_SET = (4, 20) # [NOT IMPLEMENTED] tuple of large and small data set
 NUMBER_OF_CLUSTER = 5
+SIZE_OF_SET = size.random_cluster_sizes(DATA_SIZE, NUMBER_OF_CLUSTER)# [NOT IMPLEMENTED] tuple of large and small data set
 DIMENSION = 200
 DISTANCE_THRESHOLD = 0.8
 MINIMUM_FEATURE_PER_ENTRY = 4
