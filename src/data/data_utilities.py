@@ -13,6 +13,7 @@ APIs
 
 import numpy as np
 from itertools import chain
+import os
 
 def read_file(file_path):
     data_list = []
@@ -33,6 +34,7 @@ def get_features(np_data):
     return features
 
 def write_file(data_seq, file_path):
+    os.makedirs(os.path.dirname(file_path), exist_ok=True)
     with open(file_path, 'w') as f:
         j = 0
         for i in data_seq:
