@@ -10,11 +10,11 @@ from imbalance import size
 import numpy as np
 
 # Parameters setting
-DATA_SIZE = 100
-NUMBER_OF_CLUSTER = 5
+DATA_SIZE = 1000
+NUMBER_OF_CLUSTER = 20
 SIZE_OF_SET = size.random_cluster_sizes(DATA_SIZE, NUMBER_OF_CLUSTER)
-DIMENSION = 200
-DISTANCE_THRESHOLD = 0.8
+DIMENSION = 300
+DISTANCE_THRESHOLD = 1
 MINIMUM_FEATURE_PER_ENTRY = 4
 FILE_PATH = '../data/50000.txt'
 ALL_FEATURES = feature.get_all_features(DIMENSION, FILE_PATH)
