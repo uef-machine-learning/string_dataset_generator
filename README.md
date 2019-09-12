@@ -1,5 +1,5 @@
 # String Dataset Generator
-Python scripts for string dataset generator for clustering purpose. 
+Python3 scripts for string dataset generator for clustering purpose. 
 
 *It is important to note thatThis implementation relies heavily on Jaccard similarity method.*
 
