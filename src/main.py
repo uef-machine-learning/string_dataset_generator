@@ -10,23 +10,23 @@ from imbalance import size
 import numpy as np
 
 # Parameters setting
-DATA_SIZE = 1000
-NUMBER_OF_CLUSTER = 20
-SIZE_OF_SET = size.random_cluster_sizes(DATA_SIZE, NUMBER_OF_CLUSTER)
-DIMENSION = 300
-DISTANCE_THRESHOLD = 1
-MINIMUM_FEATURE_PER_ENTRY = 4
+DATA_SIZE = 6000
+NUMBER_OF_CLUSTER = 16
+SIZE_OF_CLUSTERS = [] #size.random_cluster_sizes(DATA_SIZE, NUMBER_OF_CLUSTER)
+DIMENSION = 200
+DISTANCE_THRESHOLD = 0.8
+SIZE_OF_SET = (4,20)
 FILE_PATH = '../data/50000.txt'
 ALL_FEATURES = feature.get_all_features(DIMENSION, FILE_PATH)
 
 # Calling the library
 data, ground_truths, representatives = dg.generate(
     DATA_SIZE, 
-    SIZE_OF_SET, 
+    SIZE_OF_CLUSTERS, 
     NUMBER_OF_CLUSTER, 
     DIMENSION, 
     DISTANCE_THRESHOLD, 
-    MINIMUM_FEATURE_PER_ENTRY,
+    SIZE_OF_SET,
     ALL_FEATURES)
 
 data_utilities.write_file(data, '../out/gen_data.txt')
