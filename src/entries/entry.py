@@ -123,9 +123,13 @@ def generate_cluster_members(
     representatives, 
     minimum_feature_per_entry,
     all_features,
-    distance_threshold):
+    distance_threshold,
+    size_of_set):
 
-    number_of_data_per_cluster = _find_number_of_member_per_cluster(data_size, representatives)
+    if len(size_of_set) == 0:
+        number_of_data_per_cluster = _find_number_of_member_per_cluster(data_size, representatives)
+    else : number_of_data_per_cluster = size_of_set
+
     data = []
     ground_truths = []
 

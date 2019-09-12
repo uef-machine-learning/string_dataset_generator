@@ -3,7 +3,8 @@ This module contain the implementation of artificial data generator for set data
 
 parameters:
 * data_size : (int) an integer number specifies number of total number of data that will be generated
-* size_of_set : [NOT IMPLEMENTED](tuple) specifies min and max number of features per each data
+* size_of_set : (numpy arry) specifies size for each cluster. If empty array is passed then the size of all cluster will be the same.
+                Note that len of array should equal to number_of_cluster and sum of this array should equal to data_size
 * number_of_cluster : (int) an integer number specifies number of cluster to create
 * dimension : (int) an integer number specifies total number of features that will be generate in the data set
 * distance_threshold : (float) a number specifies the maximum distance away from the cluster representative according to Jaccard's method
@@ -39,7 +40,8 @@ def generate(
         representatives, 
         minimum_feature_per_entry, 
         all_features,
-        distance_threshold)
+        distance_threshold,
+        size_of_set)
     print('=== done generating data and ground truths ===')
 
     overlap.calculate_overlap(data, ground_truths, representatives)
