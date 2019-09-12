@@ -12,7 +12,7 @@ import numpy as np
 # Parameters setting
 DATA_SIZE = 100
 NUMBER_OF_CLUSTER = 5
-SIZE_OF_SET = size.random_cluster_sizes(DATA_SIZE, NUMBER_OF_CLUSTER)# [NOT IMPLEMENTED] tuple of large and small data set
+SIZE_OF_SET = size.random_cluster_sizes(DATA_SIZE, NUMBER_OF_CLUSTER)
 DIMENSION = 200
 DISTANCE_THRESHOLD = 0.8
 MINIMUM_FEATURE_PER_ENTRY = 4
