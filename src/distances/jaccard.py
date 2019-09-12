@@ -9,9 +9,9 @@ return:
 (float) : Jaccard's distance socre (1 - Jaccard's similarlity)
 """
 
-def _get_number_of_intersec_data(x, y):
-    return len(set(x) & set(y))
-
 def jaccard_seq(x, y):
-    num_intersect = _get_number_of_intersec_data(x,y)
-    return 1 - (num_intersect / (len(x) + len(y) - num_intersect))
+    len_x = len(x)
+    len_y = len(y)
+    fst, snd = (x, y) if len_x < len_y else (y, x)
+    num_intersect = len(set(fst).intersection(snd))
+    return 1 - (num_intersect / (len_x + len_y - num_intersect))
