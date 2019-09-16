@@ -124,14 +124,14 @@ def generate_cluster_members(
     distance_threshold,
     size_of_clusters):
 
-    if len() == 0:
+    if len(size_of_clusters) == 0:
         number_of_data_per_cluster = _find_number_of_member_per_cluster(data_size, representatives)
     else : number_of_data_per_cluster = size_of_clusters
 
     data = []
     ground_truths = []
 
-    for i in range(len(m)):
+    for i in range(len(representatives)):
         cluster_len = 0
 
         data.append(representatives[i])
