@@ -78,19 +78,19 @@ def _create_cluster_member_random_different_feature_length(
     similarity_threshold = 1 - distance_threshold
 
     number_of_member_features = random.randrange(min_feature, max_feature + 1)
-    min_union = math.floor((similarity_threshold * (len(representative) + number_of_member_features)) / (1 + similarity_threshold))
+    min_intersect = math.floor((similarity_threshold * (len(representative) + number_of_member_features)) / (1 + similarity_threshold))
 
-    while(min_union >= number_of_member_features or min_union >= len(representative)):
+    while(min_intersect >= number_of_member_features or min_intersect >= len(representative)):
         number_of_member_features = random.randrange(min_feature, max_feature + 1)
-        min_union = math.floor((similarity_threshold * (len(representative) + number_of_member_features)) / (1 + similarity_threshold))
+        min_intersect = math.floor((similarity_threshold * (len(representative) + number_of_member_features)) / (1 + similarity_threshold))
 
     new_member = np.full(number_of_member_features, DEFAULT_STRING)
-    number_of_union = np.random.randint(min_union, min(number_of_member_features, len(representative)))
+    number_of_intersect = np.random.randint(min_intersect, min(number_of_member_features, len(representative)))
     total_available_features = [x for x in all_features if x not in representative]
     
     if number_of_member_features > len(representative):
         new_member[0:len(representative)] = representative
-        id_to_change = random.sample(range(len(representative)), len(representative) - number_of_union)
+        id_to_change = random.sample(range(len(representative)), len(representative) - number_of_intersect)
         empty_space = len(np.where(new_member == DEFAULT_STRING)[0])
         new_features_pool = random.sample(total_available_features, len(id_to_change) + empty_space)
         new_member[len(representative):] = new_features_pool[0:(number_of_member_features - len(representative))]
@@ -98,12 +98,12 @@ def _create_cluster_member_random_different_feature_length(
     elif number_of_member_features < len(representative):
         selected_id = random.sample(range(len(representative)), number_of_member_features)
         new_member = representative[selected_id]
-        new_features = random.sample(total_available_features, len(new_member) - number_of_union)
-        id_to_change = random.sample(range(len(new_member)), len(new_member) - number_of_union)
+        new_features = random.sample(total_available_features, len(new_member) - number_of_intersect)
+        id_to_change = random.sample(range(len(new_member)), len(new_member) - number_of_intersect)
         new_member[id_to_change] = new_features
     else:
         new_member = np.copy(representative)
-        id_to_change = random.sample(range(number_of_member_features), number_of_member_features - number_of_union)
+        id_to_change = random.sample(range(number_of_member_features), number_of_member_features - number_of_intersect)
         new_features = random.sample(total_available_features, len(id_to_change))
         new_member[id_to_change] = new_features
     return new_member
@@ -124,14 +124,14 @@ def generate_cluster_members(
     distance_threshold,
     size_of_clusters):
 
-    if len(size_of_clusters) == 0:
+    if len() == 0:
         number_of_data_per_cluster = _find_number_of_member_per_cluster(data_size, representatives)
     else : number_of_data_per_cluster = size_of_clusters
 
     data = []
     ground_truths = []
 
-    for i in range(len(representatives)):
+    for i in range(len(m)):
         cluster_len = 0
 
         data.append(representatives[i])
