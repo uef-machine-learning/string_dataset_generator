@@ -934,13 +934,6 @@ static CYTHON_INLINE PyObject* __Pyx_PyObject_CallMethO(PyObject *func, PyObject
 /* PyObjectCallOneArg.proto */
 static CYTHON_INLINE PyObject* __Pyx_PyObject_CallOneArg(PyObject *func, PyObject *arg);
 
-/* None.proto */
-static CYTHON_INLINE int __Pyx_div_int(int, int);
-
-/* UnaryNegOverflows.proto */
-#define UNARY_NEG_WOULD_OVERFLOW(x)\
-        (((x) < 0) & ((unsigned long)(x) == 0-(unsigned long)(x)))
-
 /* PyThreadStateGet.proto */
 #if CYTHON_FAST_THREAD_STATE
 #define __Pyx_PyThreadState_declare  PyThreadState *__pyx_tstate;
@@ -1107,7 +1100,7 @@ static PyObject *__pyx_pf_10jaccard_cy_jaccard_seq(CYTHON_UNUSED PyObject *__pyx
 
 /* "jaccard_cy.pyx":1
  * cpdef float jaccard_seq(list x, list y):             # <<<<<<<<<<<<<<
- *     cdef int len_x, len_y, num_intersect
+ *     cdef int len_x, len_y
  *     cdef list fst, snd
  */
 
@@ -1115,20 +1108,20 @@ static PyObject *__pyx_pw_10jaccard_cy_1jaccard_seq(PyObject *__pyx_self, PyObje
 static float __pyx_f_10jaccard_cy_jaccard_seq(PyObject *__pyx_v_x, PyObject *__pyx_v_y, CYTHON_UNUSED int __pyx_skip_dispatch) {
   int __pyx_v_len_x;
   int __pyx_v_len_y;
-  int __pyx_v_num_intersect;
   PyObject *__pyx_v_fst = 0;
   PyObject *__pyx_v_snd = 0;
+  float __pyx_v_num_intersect;
   float __pyx_r;
   __Pyx_RefNannyDeclarations
   Py_ssize_t __pyx_t_1;
   PyObject *__pyx_t_2 = NULL;
   PyObject *__pyx_t_3 = NULL;
   PyObject *__pyx_t_4 = NULL;
-  int __pyx_t_5;
+  float __pyx_t_5;
   __Pyx_RefNannySetupContext("jaccard_seq", 0);
 
-  /* "jaccard_cy.pyx":5
- *     cdef list fst, snd
+  /* "jaccard_cy.pyx":6
+ *     cdef float num_intersect
  * 
  *     len_x = len(x)             # <<<<<<<<<<<<<<
  *     len_y = len(y)
@@ -1136,12 +1129,12 @@ static float __pyx_f_10jaccard_cy_jaccard_seq(PyObject *__pyx_v_x, PyObject *__p
  */
   if (unlikely(__pyx_v_x == Py_None)) {
     PyErr_SetString(PyExc_TypeError, "object of type 'NoneType' has no len()");
-    __PYX_ERR(0, 5, __pyx_L1_error)
+    __PYX_ERR(0, 6, __pyx_L1_error)
   }
-  __pyx_t_1 = PyList_GET_SIZE(__pyx_v_x); if (unlikely(__pyx_t_1 == ((Py_ssize_t)-1))) __PYX_ERR(0, 5, __pyx_L1_error)
+  __pyx_t_1 = PyList_GET_SIZE(__pyx_v_x); if (unlikely(__pyx_t_1 == ((Py_ssize_t)-1))) __PYX_ERR(0, 6, __pyx_L1_error)
   __pyx_v_len_x = __pyx_t_1;
 
-  /* "jaccard_cy.pyx":6
+  /* "jaccard_cy.pyx":7
  * 
  *     len_x = len(x)
  *     len_y = len(y)             # <<<<<<<<<<<<<<
@@ -1150,12 +1143,12 @@ static float __pyx_f_10jaccard_cy_jaccard_seq(PyObject *__pyx_v_x, PyObject *__p
  */
   if (unlikely(__pyx_v_y == Py_None)) {
     PyErr_SetString(PyExc_TypeError, "object of type 'NoneType' has no len()");
-    __PYX_ERR(0, 6, __pyx_L1_error)
+    __PYX_ERR(0, 7, __pyx_L1_error)
   }
-  __pyx_t_1 = PyList_GET_SIZE(__pyx_v_y); if (unlikely(__pyx_t_1 == ((Py_ssize_t)-1))) __PYX_ERR(0, 6, __pyx_L1_error)
+  __pyx_t_1 = PyList_GET_SIZE(__pyx_v_y); if (unlikely(__pyx_t_1 == ((Py_ssize_t)-1))) __PYX_ERR(0, 7, __pyx_L1_error)
   __pyx_v_len_y = __pyx_t_1;
 
-  /* "jaccard_cy.pyx":8
+  /* "jaccard_cy.pyx":9
  *     len_y = len(y)
  * 
  *     fst, snd = (x, y) if len_x < len_y else (y, x)             # <<<<<<<<<<<<<<
@@ -1163,7 +1156,7 @@ static float __pyx_f_10jaccard_cy_jaccard_seq(PyObject *__pyx_v_x, PyObject *__p
  * 
  */
   if (((__pyx_v_len_x < __pyx_v_len_y) != 0)) {
-    __pyx_t_3 = PyTuple_New(2); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 8, __pyx_L1_error)
+    __pyx_t_3 = PyTuple_New(2); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 9, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
     __Pyx_INCREF(__pyx_v_x);
     __Pyx_GIVEREF(__pyx_v_x);
@@ -1174,7 +1167,7 @@ static float __pyx_f_10jaccard_cy_jaccard_seq(PyObject *__pyx_v_x, PyObject *__p
     __pyx_t_2 = __pyx_t_3;
     __pyx_t_3 = 0;
   } else {
-    __pyx_t_3 = PyTuple_New(2); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 8, __pyx_L1_error)
+    __pyx_t_3 = PyTuple_New(2); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 9, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
     __Pyx_INCREF(__pyx_v_y);
     __Pyx_GIVEREF(__pyx_v_y);
@@ -1191,7 +1184,7 @@ static float __pyx_f_10jaccard_cy_jaccard_seq(PyObject *__pyx_v_x, PyObject *__p
     if (unlikely(size != 2)) {
       if (size > 2) __Pyx_RaiseTooManyValuesError(2);
       else if (size >= 0) __Pyx_RaiseNeedMoreValuesError(size);
-      __PYX_ERR(0, 8, __pyx_L1_error)
+      __PYX_ERR(0, 9, __pyx_L1_error)
     }
     #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
     __pyx_t_3 = PyTuple_GET_ITEM(sequence, 0); 
@@ -1199,32 +1192,32 @@ static float __pyx_f_10jaccard_cy_jaccard_seq(PyObject *__pyx_v_x, PyObject *__p
     __Pyx_INCREF(__pyx_t_3);
     __Pyx_INCREF(__pyx_t_4);
     #else
-    __pyx_t_3 = PySequence_ITEM(sequence, 0); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 8, __pyx_L1_error)
+    __pyx_t_3 = PySequence_ITEM(sequence, 0); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 9, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
-    __pyx_t_4 = PySequence_ITEM(sequence, 1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 8, __pyx_L1_error)
+    __pyx_t_4 = PySequence_ITEM(sequence, 1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 9, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
     #endif
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   } else {
-    __Pyx_RaiseNoneNotIterableError(); __PYX_ERR(0, 8, __pyx_L1_error)
+    __Pyx_RaiseNoneNotIterableError(); __PYX_ERR(0, 9, __pyx_L1_error)
   }
-  if (!(likely(PyList_CheckExact(__pyx_t_3))||((__pyx_t_3) == Py_None)||(PyErr_Format(PyExc_TypeError, "Expected %.16s, got %.200s", "list", Py_TYPE(__pyx_t_3)->tp_name), 0))) __PYX_ERR(0, 8, __pyx_L1_error)
-  if (!(likely(PyList_CheckExact(__pyx_t_4))||((__pyx_t_4) == Py_None)||(PyErr_Format(PyExc_TypeError, "Expected %.16s, got %.200s", "list", Py_TYPE(__pyx_t_4)->tp_name), 0))) __PYX_ERR(0, 8, __pyx_L1_error)
+  if (!(likely(PyList_CheckExact(__pyx_t_3))||((__pyx_t_3) == Py_None)||(PyErr_Format(PyExc_TypeError, "Expected %.16s, got %.200s", "list", Py_TYPE(__pyx_t_3)->tp_name), 0))) __PYX_ERR(0, 9, __pyx_L1_error)
+  if (!(likely(PyList_CheckExact(__pyx_t_4))||((__pyx_t_4) == Py_None)||(PyErr_Format(PyExc_TypeError, "Expected %.16s, got %.200s", "list", Py_TYPE(__pyx_t_4)->tp_name), 0))) __PYX_ERR(0, 9, __pyx_L1_error)
   __pyx_v_fst = ((PyObject*)__pyx_t_3);
   __pyx_t_3 = 0;
   __pyx_v_snd = ((PyObject*)__pyx_t_4);
   __pyx_t_4 = 0;
 
-  /* "jaccard_cy.pyx":9
+  /* "jaccard_cy.pyx":10
  * 
  *     fst, snd = (x, y) if len_x < len_y else (y, x)
  *     num_intersect = len(set(fst).intersection(snd))             # <<<<<<<<<<<<<<
  * 
  *     return 1 - (num_intersect / (len_x + len_y - num_intersect))
  */
-  __pyx_t_4 = PySet_New(__pyx_v_fst); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 9, __pyx_L1_error)
+  __pyx_t_4 = PySet_New(__pyx_v_fst); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 10, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
-  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_intersection); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 9, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_intersection); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 10, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
   __pyx_t_4 = NULL;
@@ -1239,33 +1232,29 @@ static float __pyx_f_10jaccard_cy_jaccard_seq(PyObject *__pyx_v_x, PyObject *__p
   }
   __pyx_t_2 = (__pyx_t_4) ? __Pyx_PyObject_Call2Args(__pyx_t_3, __pyx_t_4, __pyx_v_snd) : __Pyx_PyObject_CallOneArg(__pyx_t_3, __pyx_v_snd);
   __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
-  if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 9, __pyx_L1_error)
+  if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 10, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-  __pyx_t_1 = PyObject_Length(__pyx_t_2); if (unlikely(__pyx_t_1 == ((Py_ssize_t)-1))) __PYX_ERR(0, 9, __pyx_L1_error)
+  __pyx_t_1 = PyObject_Length(__pyx_t_2); if (unlikely(__pyx_t_1 == ((Py_ssize_t)-1))) __PYX_ERR(0, 10, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __pyx_v_num_intersect = __pyx_t_1;
 
-  /* "jaccard_cy.pyx":11
+  /* "jaccard_cy.pyx":12
  *     num_intersect = len(set(fst).intersection(snd))
  * 
  *     return 1 - (num_intersect / (len_x + len_y - num_intersect))             # <<<<<<<<<<<<<<
  */
   __pyx_t_5 = ((__pyx_v_len_x + __pyx_v_len_y) - __pyx_v_num_intersect);
   if (unlikely(__pyx_t_5 == 0)) {
-    PyErr_SetString(PyExc_ZeroDivisionError, "integer division or modulo by zero");
-    __PYX_ERR(0, 11, __pyx_L1_error)
+    PyErr_SetString(PyExc_ZeroDivisionError, "float division");
+    __PYX_ERR(0, 12, __pyx_L1_error)
   }
-  else if (sizeof(int) == sizeof(long) && (!(((int)-1) > 0)) && unlikely(__pyx_t_5 == (int)-1)  && unlikely(UNARY_NEG_WOULD_OVERFLOW(__pyx_v_num_intersect))) {
-    PyErr_SetString(PyExc_OverflowError, "value too large to perform division");
-    __PYX_ERR(0, 11, __pyx_L1_error)
-  }
-  __pyx_r = (1 - __Pyx_div_int(__pyx_v_num_intersect, __pyx_t_5));
+  __pyx_r = (1.0 - (__pyx_v_num_intersect / __pyx_t_5));
   goto __pyx_L0;
 
   /* "jaccard_cy.pyx":1
  * cpdef float jaccard_seq(list x, list y):             # <<<<<<<<<<<<<<
- *     cdef int len_x, len_y, num_intersect
+ *     cdef int len_x, len_y
  *     cdef list fst, snd
  */
 
@@ -1710,7 +1699,7 @@ if (!__Pyx_RefNanny) {
 
   /* "jaccard_cy.pyx":1
  * cpdef float jaccard_seq(list x, list y):             # <<<<<<<<<<<<<<
- *     cdef int len_x, len_y, num_intersect
+ *     cdef int len_x, len_y
  *     cdef list fst, snd
  */
   __pyx_t_1 = __Pyx_PyDict_NewPresized(0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1, __pyx_L1_error)
@@ -2042,14 +2031,6 @@ static CYTHON_INLINE PyObject* __Pyx_PyObject_CallOneArg(PyObject *func, PyObjec
     return result;
 }
 #endif
-
-/* None */
-static CYTHON_INLINE int __Pyx_div_int(int a, int b) {
-    int q = a / b;
-    int r = a - q*b;
-    q -= ((r != 0) & ((r ^ b) < 0));
-    return q;
-}
 
 /* PyErrFetchRestore */
 #if CYTHON_FAST_THREAD_STATE
