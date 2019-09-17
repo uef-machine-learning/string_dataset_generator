@@ -45,10 +45,12 @@ To use this program as a library you can simple import `artificial_set_data_gene
 * **size_of_set** : (tuple(int,int)) a tuple of intergers specifies the minimum and maximum feature that each data has to contain
 * **all_features** : (string[]) an array of string containing all possible features of the dataset
 
-
 ## Output
 From the `main.py` example, the output will be written the 3 separate files in out folder.
 
 * gen_data.txt
 * gen_representative.txt
 * gen_ground_truths.txt
+
+## Program flow chart
+![program flowchart](./flowchart/flowchart.jpg)
