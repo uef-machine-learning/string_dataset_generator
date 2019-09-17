@@ -26,7 +26,7 @@ APIs
 import numpy as np
 import random
 import math
-from distances import jaccard
+from distances import jaccard_cy as jaccard
 
 DEFAULT_STRING = '   '
 
