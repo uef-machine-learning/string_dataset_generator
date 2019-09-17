@@ -9,7 +9,7 @@ parameters:
 * representatives : list of numpy array (cluster representative / medoids)
 """
 
-from distances import jaccard, pairwise
+from distances import jaccard_cy as jaccard, pairwise
 import numpy as np
 
 def _find_closest_member_from_other_clusters(own_cluster_id, pw_dist, ground_truths, data_id):
@@ -29,7 +29,7 @@ def calculate_overlap(data, ground_truths, representatives):
     for i in range(len(data)):
         closest_member_from_other_cluster_id = _find_closest_member_from_other_clusters(ground_truths[i], pw_dist, ground_truths, i)
         closest_member_from_other_cluster = data[closest_member_from_other_cluster_id]
-        if jaccard.jaccard_seq(data[i], closest_member_from_other_cluster) < jaccard.jaccard_seq(data[i], representatives[ground_truths[i]]):
+        if jaccard.jaccard_seq(list(data[i]), list(closest_member_from_other_cluster)) < jaccard.jaccard_seq(list(data[i]), list(representatives[ground_truths[i]])):
             print('there is an overlap at data', i, 'with cluster', ground_truths[closest_member_from_other_cluster_id])
             print('id of the overlap partner is ', closest_member_from_other_cluster_id)
             overlap_count = overlap_count + 1

@@ -7,7 +7,7 @@ parameters:
 
 import numpy as np
 from itertools import combinations
-from distances import jaccard
+from distances import jaccard_cy as jaccard
 
 def calculate_pairwise_distance(X):
     # TODO : this function is very slow need improvement
@@ -16,7 +16,7 @@ def calculate_pairwise_distance(X):
     iterator = combinations(range(X.shape[0]), 2)
 
     for i, j in iterator: 
-        precomputed[i, j] = jaccard.jaccard_seq(X[i], X[j])  
+        precomputed[i, j] = jaccard.jaccard_seq(list(X[i]), list(X[j]))  
 
     # Make symmetric and return
     return precomputed + precomputed.T - np.diag(np.diag(precomputed))
