@@ -35,4 +35,3 @@ print("--- %s seconds ---" % (time.time() - start_time))
 data_utilities.write_file(data, '../out/gen_data.txt')
 data_utilities.write_file(representatives, '../out/gen_representative.txt')
 np.savetxt('../out/gen_ground_truths.txt', ground_truths.T, fmt='%d') 
-q
