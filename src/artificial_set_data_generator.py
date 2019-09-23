@@ -14,7 +14,7 @@ parameters:
 returns:
 type : tuple
 * artificially generated data set as a list of numpy array containing strings
-* ground truth of the data set
+* ground truths labels  of the data set
 * list of numpy array (cluster representative / medoids)
 """
 from entries import entry
@@ -35,16 +35,16 @@ def generate(
         all_features)
     print('=== done representative calculation ===')
 
-    data, ground_truths = entry.generate_cluster_members(
+    data, ground_truth_labels = entry.generate_cluster_members(
         data_size, 
         representatives, 
         size_of_set, 
         all_features,
         distance_threshold,
         size_of_clusters)
-    print('=== done generating data and ground truths ===')
+    print('=== done generating data and ground truths labels ===')
 
-    overlap.calculate_overlap(data, ground_truths, representatives)
+    overlap.calculate_overlap(data, ground_truth_labels, representatives)
     print('=== done overlap calculation ===')
 
-    return(data, ground_truths, representatives)
+    return(data, ground_truth_labels, representatives)

@@ -10,7 +10,7 @@ APIs
     * return
         - all_representative : list of numpy array (cluster representative / medoids)
 
-* generate_cluster_members : create data entries for all cluster along with its ground truth
+* generate_cluster_members : create data entries for all cluster along with its ground truths labels 
     * parameters
         - data_size : (int) an integer number specifies number of total number of data that will be generated
         - representatives : (list(numpy array)) list of numpy array (cluster representative / medoids)
@@ -20,7 +20,7 @@ APIs
     * return
         type : tuple
         - artificially generated data set as a list of numpy array containing strings
-        - ground truth of the data set
+        - ground truths labels  of the data set
 """
 
 import numpy as np
@@ -129,13 +129,13 @@ def generate_cluster_members(
     else : number_of_data_per_cluster = size_of_clusters
 
     data = []
-    ground_truths = []
+    ground_truth_labels = []
 
     for i in range(len(representatives)):
         cluster_len = 0
 
         data.append(representatives[i])
-        ground_truths.append(i)
+        ground_truth_labels.append(i)
 
         cluster_len = 1
 
@@ -150,10 +150,10 @@ def generate_cluster_members(
             if jaccard.jaccard_seq(representatives[i], member) < distance_threshold:
                 np.random.shuffle(member)
                 data.append(member)
-                ground_truths.append(i)
+                ground_truth_labels.append(i)
                 cluster_len = cluster_len + 1
 
-    if len(np.array(ground_truths)) != len(data):
-        raise Exception('Program terminated, lengths of data and ground truths are not equal')
+    if len(np.array(ground_truth_labels)) != len(data):
+        raise Exception('Program terminated, lengths of data and ground truths labels are not equal')
 
-    return (data, np.array(ground_truths))
+    return (data, np.array(ground_truth_labels))

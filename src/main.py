@@ -20,7 +20,7 @@ FILE_PATH = '../data/50000.txt'
 ALL_FEATURES = feature.get_all_features(DIMENSION, FILE_PATH)
 
 # Calling the library
-data, ground_truths, representatives = dg.generate(
+data, ground_truth_labels, representatives = dg.generate(
     DATA_SIZE, 
     SIZE_OF_CLUSTERS, 
     NUMBER_OF_CLUSTER, 
@@ -31,4 +31,4 @@ data, ground_truths, representatives = dg.generate(
 
 data_utilities.write_file(data, '../out/gen_data.txt')
 data_utilities.write_file(representatives, '../out/gen_representative.txt')
-np.savetxt('../out/gen_ground_truths.txt', ground_truths.T, fmt='%d') 
+np.savetxt('../out/gen_ground_truth_labels.txt', ground_truth_labels.T, fmt='%d') 
