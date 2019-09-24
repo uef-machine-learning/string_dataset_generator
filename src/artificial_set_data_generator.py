@@ -49,7 +49,7 @@ def generate(
         size_of_clusters)
     print('=== done generating data and ground truths labels ===')
 
-    overlap.calculate_overlap(data, ground_truth_labels, representatives)
+    overlap_percentage = overlap.calculate_overlap(data, ground_truth_labels, representatives)
     print('=== done overlap calculation ===')
 
 
@@ -59,4 +59,4 @@ def generate(
     print('=== done shuffling ===')
 
 
-    return(data, ground_truth_labels, representatives)
+    return(data, ground_truth_labels, representatives, overlap_percentage)
