@@ -53,11 +53,9 @@ def generate(
     overlap_percentage = overlap.calculate_overlap(data, ground_truth_labels, representatives)
     print('=== done overlap calculation ===')
 
-
     combined = list(zip(data, ground_truth_labels))
     random.shuffle(combined)
     data[:], ground_truth_labels[:] = zip(*combined)
     print('=== done shuffling ===')
-
 
     return(data, ground_truth_labels, representatives, overlap_percentage)
