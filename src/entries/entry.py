@@ -148,7 +148,6 @@ def generate_cluster_members(
                 distance_threshold)
 
             if jaccard.jaccard_seq(representatives[i], member) < distance_threshold:
-                np.random.shuffle(member)
                 data.append(member)
                 ground_truth_labels.append(i)
                 cluster_len = cluster_len + 1

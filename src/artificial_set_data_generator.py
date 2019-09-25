@@ -10,6 +10,7 @@ parameters:
 * distance_threshold : (float) a number specifies the maximum distance away from the cluster representative according to Jaccard's method
 * size_of_set : (tuple(int,int)) a tuple of intergers specifies the minimum and maximum feature that each data has to contain
 * all_features : (string[]) an array of string containing all possible features of the dataset
+* gt_representative : (string[][]) if empty the program will randomly generate the cluster representatives, else program uses the provides values as cluster representatives
 
 returns:
 type : tuple
@@ -19,6 +20,7 @@ type : tuple
 """
 from entries import entry
 from distances import jaccard, pairwise, overlap
+import random
 
 def generate(
     data_size, 
@@ -27,12 +29,16 @@ def generate(
     dimension, 
     distance_threshold, 
     size_of_set,
-    all_features):
+    all_features,
+    gt_representative):
 
-    representatives = entry.create_cluster_representatives(
-        number_of_cluster, 
-        size_of_set, 
-        all_features)
+    if len(gt_representative) == 0:
+        representatives = entry.create_cluster_representatives(
+            number_of_cluster, 
+            size_of_set, 
+            all_features)
+    else: representatives = gt_representative
+
     print('=== done representative calculation ===')
 
     data, ground_truth_labels = entry.generate_cluster_members(
@@ -44,7 +50,12 @@ def generate(
         size_of_clusters)
     print('=== done generating data and ground truths labels ===')
 
-    overlap.calculate_overlap(data, ground_truth_labels, representatives)
+    overlap_percentage = overlap.calculate_overlap(data, ground_truth_labels, representatives)
     print('=== done overlap calculation ===')
 
-    return(data, ground_truth_labels, representatives)
+    combined = list(zip(data, ground_truth_labels))
+    random.shuffle(combined)
+    data[:], ground_truth_labels[:] = zip(*combined)
+    print('=== done shuffling ===')
+
+    return(data, ground_truth_labels, representatives, overlap_percentage)

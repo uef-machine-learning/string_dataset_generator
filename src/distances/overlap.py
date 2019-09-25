@@ -30,8 +30,6 @@ def calculate_overlap(data, ground_truth_labels, representatives):
         closest_member_from_other_cluster_id = _find_closest_member_from_other_clusters(ground_truth_labels[i], pw_dist, ground_truth_labels, i)
         closest_member_from_other_cluster = data[closest_member_from_other_cluster_id]
         if jaccard.jaccard_seq(data[i], closest_member_from_other_cluster) < jaccard.jaccard_seq(data[i], representatives[ground_truth_labels[i]]):
-            print('there is an overlap at data', i, 'with cluster', ground_truth_labels[closest_member_from_other_cluster_id])
-            print('id of the overlap partner is ', closest_member_from_other_cluster_id)
             overlap_count = overlap_count + 1
 
-    print('overlap percentage is:', (overlap_count * 100) / len(data))
+    return (overlap_count * 100) / len(data)

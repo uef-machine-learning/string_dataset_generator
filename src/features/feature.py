@@ -14,10 +14,16 @@ import numpy as np
 import random
 from data import data_utilities
 
-def get_all_features(dimension, file_path):
+def get_all_features(dimension, file_path, gt_representative):
     all_features = data_utilities.get_features(data_utilities.read_file(file_path))
 
     if all_features.shape[0] < dimension:
         raise Exception('Program terminated, number of dimension is higher than total data.')
-    
+
+    if len(gt_representative) == 0:
+        return np.array(random.sample(all_features.tolist(), dimension))
+
+    gt_representative = data_utilities.get_features(gt_representative)
+    unique_gt_features = np.unique(gt_representative)
+    all_features = np.array([x for x in all_features if x not in unique_gt_features])
     return np.array(random.sample(all_features.tolist(), dimension))

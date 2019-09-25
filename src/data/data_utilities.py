@@ -22,7 +22,7 @@ def read_file(file_path):
         for line in f.readlines():
             line = line.rstrip()
             line = line.split(' ')
-            data_list.append(line)
+            data_list.append(np.array(line))
 
     return np.array(data_list)
 
