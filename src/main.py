@@ -19,7 +19,6 @@ SIZE_OF_SET = (4,20)
 ALL_FEATURE_FILE_PATH = '../data/50000.txt'
 GT_REPRESENTATIVE_FILE_PATH = '../data/1000N_6K_gt_representative.txt'
 
-
 # Read ground truth representative
 if GT_REPRESENTATIVE_FILE_PATH != '': 
     gt_representative = data_utilities.read_file(GT_REPRESENTATIVE_FILE_PATH)

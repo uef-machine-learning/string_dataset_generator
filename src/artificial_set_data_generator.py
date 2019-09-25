@@ -10,6 +10,7 @@ parameters:
 * distance_threshold : (float) a number specifies the maximum distance away from the cluster representative according to Jaccard's method
 * size_of_set : (tuple(int,int)) a tuple of intergers specifies the minimum and maximum feature that each data has to contain
 * all_features : (string[]) an array of string containing all possible features of the dataset
+* gt_representative : (string[][]) if empty the program will randomly generate the cluster representatives, else program uses the provides values as cluster representatives
 
 returns:
 type : tuple
