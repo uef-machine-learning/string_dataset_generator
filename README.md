@@ -53,6 +53,25 @@ If you run the code from our `main.py` you can store your ground truth represent
 
 Make sure that your stored representatives are store in the same format as the original input (take a look at the example above).
 
+## Creating imbalance clusters
+From the configuration section, there is an option that you can provide different sizes for each cluster (array with integers instead of empty for `size_of_clusters`)
+
+The library provides some APIs to help generate those values in the pattern that have been found common.
+
+Those APIs located in `size.py` under `imbalance` directory
+
+* **random_cluster_sizes** : 
+    * arguments: (int) data size, (int) number of cluster
+    * output: (int[]) integers array with len of number of cluster, each element will be a random number that in total will sum to the amount of data size.
+
+* **build_specific_sizes** :
+    * arguments (int) data size, ((int, int)) a tuple of 2 integers specify number of big and small clusters accordingly, (int) ratio of big and small cluster member
+    * output: (int[]) integers array with len of number of cluster with specified number of big and small clusters. The value of each element will be the number of cluster according to the given ratio.
+
+    *example with 6000 data size*
+    ![example size](./document/example_size.png)
+
+
 ## Output
 From the `main.py` example, the output will be written the 3 separate files in out folder.
 
