@@ -39,6 +39,9 @@ def generate(
             all_features)
     else: representatives = gt_representative
 
+    if len(representatives) != number_of_cluster:
+        raise('number of representatives and number of clusters are not equal')
+
     print('=== done representative calculation ===')
 
     data, ground_truth_labels = entry.generate_cluster_members(
