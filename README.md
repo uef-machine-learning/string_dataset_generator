@@ -85,5 +85,8 @@ From the `main.py` example, the output will be written the 3 separate files in o
 
 *note3: {} before overlap stand for the percentage of **data overlap** that program generated*
 
+## TODO
+* improving control over overlap percentage. Ideally, users should be able to specify the overlap percentage as on amoung other program's configurations
+
 ## Program flow chart
 ![program flowchart](./document/flowchart.png)
